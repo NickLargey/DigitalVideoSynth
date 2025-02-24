@@ -12,7 +12,7 @@ This tool will be used to create other works and, like all software, will never 
 
 ## Approach:
 
-1. Get understanding of [ThreeJS](https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene) and [WebGL](https://webgl2fundamentals.org/webgl/lessons/webgl-fundamentals.html) by recreating and modifying SimonDev tutorials
+1. Get understanding of [ThreeJS](https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene) and [WebGL](https://webgl2fundamentals.org/webgl/lessons/webgl-fundamentals.html) by recreating and modifying various tutorials and documentation examples
 2. Create basic scene in ThreeJS as 3D canvas for DVS
    - Generate and manipulate random shape
    - Apply basic Video Synth functions to scene, thresholding, color manipulation, blur, playing video
