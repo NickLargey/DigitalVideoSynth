@@ -82,12 +82,12 @@ scene.add(box); // add the box object to the scene
 const controls = new OrbitControls(camera, renderer.domElement); // create new Orbit Controls object
 controls.target.set(0, 0, 0);
 controls.object.position.set(0, 0, 10);
-controls.keys = {
-  LEFT: "KeyA",
-  UP: "KeyW",
-  RIGHT: "KeyD",
-  BOTTOM: "KeyS",
-};
+// controls.keys = {
+//   LEFT: "KeyA",
+//   UP: "KeyW",
+//   RIGHT: "KeyD",
+//   BOTTOM: "KeyS",
+// };
 controls.update(); // update controls for each move
 
 // Position the camera
