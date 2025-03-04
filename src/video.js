@@ -59,19 +59,19 @@ video.addEventListener("error", (error) => {
 
 const vidTexture = new THREE.VideoTexture(video);
 vidTexture.colorSpace = THREE.LinearSRGBColorSpace;
-
+vidTexture.anisotropy = 0;
 // PLANE GEOMETRY AND MATERIAL
 const geometry = new THREE.PlaneGeometry(4, 3); // Adjust size to match video aspect ratio (example: 16:9)
-const material = new THREE.MeshBasicMaterial({ map: vidTexture }); //Use MeshBasicMaterial for unlit video`
-
-const plane = new THREE.Mesh(geometry, material);
+const vidMaterial = new THREE.MeshBasicMaterial({ map: vidTexture }); //Use MeshBasicMaterial for unlit video`
+const material = new THREE.ShaderMaterial(BasicShader);
+const plane = new THREE.Mesh(geometry, vidMaterial); // material, 
 
 scene.add(plane);
 
 const box = new THREE.Mesh( // create a Mesh object to hold Box primative object
   new THREE.BoxGeometry(2, 2, 2), // set the size of the Box (X, Y, Z)
   new THREE.MeshStandardMaterial({
-    color: 0xffffff, // Set the color to white
+    color: 0xff0000,
   })
 );
 
@@ -107,8 +107,8 @@ function animate() {
   requestAnimationFrame(animate);
   controls.update();
 
-  plane.rotation.x += 0.0001;
-  plane.rotation.y += 0.0001;
+  plane.rotation.x += 0.01;
+  plane.rotation.y += 0.01;
 
   renderer.render(scene, camera);
 }
