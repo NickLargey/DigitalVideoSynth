@@ -14,6 +14,32 @@
         }
       }
     </script>
-    <script src="source.js"></script>
+    <script>
+      import * as THREE from "three";
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(
+        75,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        1000
+      );
+
+      const renderer = new THREE.WebGLRenderer();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+      
+      var geom = new THREE.Geometry();
+      var v1 = new THREE.Vector3(0, 0, 0);
+      var v2 = new THREE.Vector3(0, 500, 0);
+      var v3 = new THREE.Vector3(0, 500, 500);
+
+      geom.vertices.push(new THREE.Vertex(v1));
+      geom.vertices.push(new THREE.Vertex(v2));
+      geom.vertices.push(new THREE.Vertex(v3));
+
+      var object = new THREE.Mesh(geom, new THREE.MeshNormalMaterial());
+      scene.addObject(object);
+    </script>
   </body>
 </html>
