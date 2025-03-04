@@ -45,7 +45,7 @@ scene.add(ambLight); // attach ambient lighting object to scene
 const video = document.createElement("video");
 video.src = "./assets/Max_No_Audio.mp4"; // Replace with your video path
 video.loop = true; // Optional: Loop the video
-// video.muted = true; // Optional: Mute the video
+video.muted = true; // Optional: Mute the video
 
 // Important: Add event listeners to handle video loading and playback
 video.addEventListener("loadeddata", () => {
@@ -79,9 +79,18 @@ box.position.set(5, 0, 0); // set the starting position of the Box object
 scene.add(box); // add the box object to the scene
 
 // ADDED MOVEMENT CONTROLS
+
 const controls = new OrbitControls(camera, renderer.domElement); // create new Orbit Controls object
 controls.target.set(0, 0, 0);
 controls.object.position.set(0, 0, 10);
+controls.addEventListener("connected", (event) => {
+  if ("gamepad" in event.data) {
+    if ("axes" in event.data.gamepad) {
+      //we have a modern controller
+      controls.gamepad = event.data.gamepad;
+    }
+  }
+});
 // controls.keys = {
 //   LEFT: "KeyA",
 //   UP: "KeyW",
