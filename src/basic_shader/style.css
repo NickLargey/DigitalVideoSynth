@@ -7,3 +7,8 @@ body {
   padding: 0;
   overscroll-behavior: none;
 }
+
+.container {
+  width: 99vw;
+  height: 99vh;
+}
