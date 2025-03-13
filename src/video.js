@@ -60,6 +60,7 @@ video.addEventListener("error", (error) => {
 const vidTexture = new THREE.VideoTexture(video);
 vidTexture.colorSpace = THREE.LinearSRGBColorSpace;
 vidTexture.anisotropy = 0;
+
 // PLANE GEOMETRY AND MATERIAL
 const geometry = new THREE.PlaneGeometry(4, 3); // Adjust size to match video aspect ratio (example: 16:9)
 const vidMaterial = new THREE.MeshBasicMaterial({ map: vidTexture }); //Use MeshBasicMaterial for unlit video`
@@ -83,20 +84,14 @@ scene.add(box); // add the box object to the scene
 const controls = new OrbitControls(camera, renderer.domElement); // create new Orbit Controls object
 controls.target.set(0, 0, 0);
 controls.object.position.set(0, 0, 10);
-controls.addEventListener("connected", (event) => {
-  if ("gamepad" in event.data) {
-    if ("axes" in event.data.gamepad) {
-      //we have a modern controller
-      controls.gamepad = event.data.gamepad;
-    }
-  }
-});
-// controls.keys = {
-//   LEFT: "KeyA",
-//   UP: "KeyW",
-//   RIGHT: "KeyD",
-//   BOTTOM: "KeyS",
-// };
+// controls.addEventListener("connected", (event) => {
+//   if ("gamepad" in event.data) {
+//     if ("axes" in event.data.gamepad) {
+//       //we have a modern controller
+//       controls.gamepad = event.data.gamepad;
+//     }
+//   }
+// });
 controls.update(); // update controls for each move
 
 // Position the camera
@@ -113,4 +108,4 @@ function animate() {
   renderer.render(scene, camera);
 }
 
-animate();
+requestAnimationFrame(animate);

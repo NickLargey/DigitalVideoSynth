@@ -259,3 +259,17 @@ renderer.setAnimationLoop(render);
 console.log(material.uniforms);
 // ====== END
 ```
+
+## START:
+
+### Loading .frag and .vert files
+
+```javascript
+async function init() {
+  fragmentShader = await (await fetch("../shaders/basic.frag")).text();
+  vertexShader = await (await fetch("../shaders/basic.vert")).text();
+
+  return fragmentShader, vertexShader;
+}
+init();
+```

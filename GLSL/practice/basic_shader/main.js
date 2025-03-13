@@ -1,4 +1,4 @@
-import * as THREE from "../../../three.js/build/three.module.js";
+import * as THREE from "../../../../three.js/build/three.module.js";
 
 let frag_shader, vert_shader;
 
