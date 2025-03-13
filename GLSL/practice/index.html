@@ -81,26 +81,6 @@
           renderer.setSize(window.innerWidth, window.innerHeight);
         });
 
-        // LIGHTS
-        // ambLight = new THREE.AmbientLight(0xffffff); // create new ambient lighting object
-        // scene.add(ambLight); // attach ambient lighting object to scene
-
-        // let numFilesLeft = 2;
-        // function runMoreIfDone() {
-        //   --numFilesLeft;
-        //   if (numFilesLeft === 0) {
-        //     more();
-        //   }
-        // }
-
-        // loader.load("../shaders/basic.frag", function (data) {
-        //   fragmentShader = data;
-        //   runMoreIfDone();
-        // });
-        // loader.load("../shaders/basic.vert", function (data) {
-        //   vertexShader = data;
-        //   runMoreIfDone();
-        // });
         more();
       }
 
@@ -150,14 +130,14 @@
         );
         // VIDEO TEXTURE
         const video = document.createElement("video");
-        video.src = "../../assets/Max_No_Audio.mp4"; // Replace with your video path
-        video.loop = true; // Optional: Loop the video
-        video.muted = true; // Optional: Mute the video
+        video.src = "../../assets/Max_No_Audio.mp4";
+        video.loop = true;
+        video.muted = true;
 
         // Important: Add event listeners to handle video loading and playback
         video.addEventListener("loadeddata", () => {
           console.log("%s Video Loaded", video.src);
-          video.play(); // Autoplay after video is loaded
+          video.play();
         });
 
         video.addEventListener("error", (error) => {
@@ -166,11 +146,9 @@
 
         const vidTexture = new THREE.VideoTexture(video);
 
-        // geometry.computeVertexNormals();
         uniforms = {
           millis: Date.now() * 0.0001,
           pointTexture: {
-            // value: new THREE.TextureLoader().load("Hydra-Foto.png"),
             value: vidTexture,
           },
         };
@@ -184,8 +162,6 @@
           vertexColors: true,
         });
 
-        // console.log(typeof fragmentShader);
-        // console.log(typeof vertexShader);
         const object = new THREE.Points(geometry, material);
         scene.add(object);
         // animate();
@@ -197,18 +173,15 @@
 
         const controls = new OrbitControls(camera, renderer.domElement); // create new Orbit Controls object
         controls.target.set(0, 0, 0);
-        controls.object.position.set(0, 0, 10);
+        controls.object.position.set(0, 0, 100);
         controls.update();
 
-        // const container = document.getElementById("container");
-        // container.appendChild(renderer.domElement);
         renderer.setAnimationLoop(animate);
       }
 
       // ANIMATION LOOP
       function animate() {
         requestAnimationFrame(animate);
-        // controls.update();
         // const time = Date.now() * 0.0005;
         // const sizes = geometry.attributes.size.array;
 
@@ -219,7 +192,7 @@
         // geometry.attributes.size.needsUpdate = true;
         renderer.render(scene, camera);
       }
-      requestAnimationFrame(animate);
+      // requestAnimationFrame(animate);
     </script>
   </body>
 </html>
