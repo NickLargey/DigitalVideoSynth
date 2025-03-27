@@ -15,7 +15,7 @@
       void main() {
         pos = position;
       	vColor = color;
-      	vec4 mvPosition = modelViewMatrix * vec4( pos, 1.0 );
+      	vec4 mvPosition = modelViewMatrix * vec4( pos.x, pos.y, pos.z, 1.0 );
       	gl_PointSize = size * ( 300.0 / -mvPosition.z );
       	gl_Position = projectionMatrix * mvPosition;
       }
@@ -27,15 +27,11 @@
       uniform float millis;
       varying vec3 pos;
       void main() {
-        float c = (sin(pos.x * 16. + millis/1000.) + 1. )/2.; // divide millis by 1000 to put into seconds, slowing down the scroll
+        float c = (sin(pos.x * 2. + millis) + 1. )/2.; 
         gl_FragColor = vec4(c, 0., 1., 1.);
-        gl_FragColor = gl_FragColor * texture2D( pointTexture, gl_PointCoord );
+        gl_FragColor = gl_FragColor * texture2D( pointTexture, gl_PointCoord ) ;
       }
     </script>
-    <!-- void main() {
-          	gl_FragColor = vec4( vColor, 1.0 );
-          	gl_FragColor = gl_FragColor * texture2D( pointTexture, gl_PointCoord );
-          } -->
     <script type="importmap">
       {
         "imports": {
@@ -98,7 +94,7 @@
 
         let color = new THREE.Color();
 
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 1; i++) {
           positions.push(Math.random() * 2 * (Math.random() * 10) - 1);
           positions.push(Math.random() * 2 * (Math.random() * -10) - 1);
           positions.push(Math.random() * 2 * (Math.random() * 12) - 1);
@@ -147,7 +143,7 @@
         const vidTexture = new THREE.VideoTexture(video);
 
         uniforms = {
-          millis: Date.now() * 0.0001,
+          millis: Math.floor(Date.now() / 1000),
           pointTexture: {
             value: vidTexture,
           },
@@ -157,7 +153,7 @@
           vertexShader: document.getElementById("vertexShader").textContent,
           fragmentShader: document.getElementById("fragmentShader").textContent,
           blending: THREE.AdditiveBlending,
-          depthTest: false,
+          depthTest: true,
           transparent: false,
           vertexColors: true,
         });
@@ -173,7 +169,7 @@
 
         const controls = new OrbitControls(camera, renderer.domElement); // create new Orbit Controls object
         controls.target.set(0, 0, 0);
-        controls.object.position.set(0, 0, 100);
+        controls.object.position.set(0, 0, -20);
         controls.update();
 
         renderer.setAnimationLoop(animate);
@@ -185,11 +181,11 @@
         // const time = Date.now() * 0.0005;
         // const sizes = geometry.attributes.size.array;
 
-        // for (let i = 0; i < 3; i++) {
+        // for (let i = 0; i < 1; i++) {
         //   sizes[i] = 10 * (1 + Math.sin(0.1 * i + time));
         // }
 
-        // geometry.attributes.size.needsUpdate = true;
+        geometry.attributes.size.needsUpdate = true;
         renderer.render(scene, camera);
       }
       // requestAnimationFrame(animate);
