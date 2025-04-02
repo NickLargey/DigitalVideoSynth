@@ -156,6 +156,51 @@ precision mediump float;
      void main() {
          gl_FragColor = texture2D(u_texture, v_uv);
      }`;
+
+var vertexShader = `#version 300 es
+                precision mediump float;
+                
+                attribute vec3 a_position;
+                attribute vec2 a_uv;
+                
+                uniform mat4 u_matrix;
+                
+                varying vec2 v_uv;
+                
+                void main() {
+                  gl_Position = u_matrix * vec4(a_position, 1.0);
+                  v_uv = a_uv;
+          }`;
+var fragmentShader = `#version 300 es
+                  precision mediump float;
+                  
+                  uniform sampler2D u_texture; // Video/GIF texture
+                  uniform vec2 u_resolution; // Canvas resolution
+                  
+                  varying vec2 v_uv;
+                  
+                  void main() {
+                      vec4 color = texture2D(u_texture, v_uv);
+                  
+                      // Example 1: Pass through the original color
+                      gl_FragColor = color;
+                  
+                      // Example 2: Modify color based on pixel location (screen coordinates)
+                      vec2 screenCoord = gl_FragCoord.xy;
+                      // Example: Add a red tint based on x-coordinate
+                      // gl_FragColor = vec4(color.r + screenCoord.x / u_resolution.x, color.g, color.b, color.a);
+                  
+                      // Example 3: Modify color based on UV coordinates
+                      // float redAmount = sin(v_uv.x * 10.0); // Example: Sine wave for red
+                      // gl_FragColor = vec4(color.r * redAmount, color.g, color.b, color.a);
+                  
+                      // Example 4:  Grayscale
+                      // float gray = dot(color.rgb, vec3(0.299, 0.587, 0.114));
+                      // gl_FragColor = vec4(gray, gray, gray, color.a);
+                  
+                      // Example 5: Invert colors
+                      // gl_FragColor = vec4(1.0 - color.r, 1.0 - color.g, 1.0 - color.b, color.a);
+}`;
 ```
 
 ## Start: From [Mr. Doob 3JS webgl example](https://github.com/mrdoob/three.js/blob/dev/examples/webgl_buffergeometry_custom_attributes_particles.html)
@@ -258,4 +303,18 @@ function render() {
 renderer.setAnimationLoop(render);
 console.log(material.uniforms);
 // ====== END
+```
+
+## START:
+
+### Loading .frag and .vert files
+
+```javascript
+async function init() {
+  fragmentShader = await (await fetch("../shaders/basic.frag")).text();
+  vertexShader = await (await fetch("../shaders/basic.vert")).text();
+
+  return fragmentShader, vertexShader;
+}
+init();
 ```

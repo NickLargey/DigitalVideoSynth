@@ -1,20 +1,6 @@
 import * as THREE from "three";
 import { OrbitControls } from "https://cdn.jsdelivr.net/npm/three@0.118/examples/jsm/controls/OrbitControls.js";
 
-// VER AND FRAG SHADERS
-const BasicShader = {
-  name: "BasicShader",
-  uniforms: {},
-  vertexShader: /* glsl */ `
-		void main() {
-			gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
-		}`,
-
-  fragmentShader: /* glsl */ `
-		void main() {
-			gl_FragColor = vec4( 1.0, 0.0, 0.0, 0.5 );
-		}`,
-};
 
 // SCENE, CAMERA AND RENDERER OBJECT INIT
 const scene = new THREE.Scene();
@@ -41,11 +27,7 @@ window.addEventListener("resize", () => {
 let ambLight = new THREE.AmbientLight(0xffffff); // create new ambient lighting object
 scene.add(ambLight); // attach ambient lighting object to scene
 
-// VIDEO TEXTURE
-const video = document.createElement("video");
-video.src = "./assets/Max_No_Audio.mp4"; // Replace with your video path
-video.loop = true; // Optional: Loop the video
-video.muted = true; // Optional: Mute the video
+
 
 // Important: Add event listeners to handle video loading and playback
 video.addEventListener("loadeddata", () => {
@@ -84,14 +66,6 @@ scene.add(box); // add the box object to the scene
 const controls = new OrbitControls(camera, renderer.domElement); // create new Orbit Controls object
 controls.target.set(0, 0, 0);
 controls.object.position.set(0, 0, 10);
-// controls.addEventListener("connected", (event) => {
-//   if ("gamepad" in event.data) {
-//     if ("axes" in event.data.gamepad) {
-//       //we have a modern controller
-//       controls.gamepad = event.data.gamepad;
-//     }
-//   }
-// });
 controls.update(); // update controls for each move
 
 // Position the camera
