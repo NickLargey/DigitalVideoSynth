@@ -3,96 +3,171 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="../aframe.min.js"></script>
-    <script
-      crossorigin="anonymous"
-      src="https://unpkg.com/aframe-environment-component@1.3.x/dist/aframe-environment-component.min.js"
-    ></script>
-    <script src="../aframe-physics-system/dist/aframe-physics-system.min.js"></script>
+    <script src="../pkgs/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component@1.3.x/dist/aframe-environment-component.min.js"></script>
+    <script src="../pkgs/aframe-physics-system/dist/aframe-physics-system.min.js"></script>
     <script src="https://unpkg.com/aframe-template-component@3.x.x/dist/aframe-template-component.min.js"></script>
     <script src="https://unpkg.com/aframe-layout-component@5.x.x/dist/aframe-layout-component.min.js"></script>
     <script src="https://unpkg.com/aframe-event-set-component@5.x.x/dist/aframe-event-set-component.min.js"></script>
     <script src="https://unpkg.com/aframe-proxy-event-component@2.1.0/dist/aframe-proxy-event-component.min.jss"></script>
+    <script src="https://unpkg.com/aframe-room-component/dist/aframe-room-component.min.js"></script>
+    <script src="../pkgs/aframe/examples/js/play-on-click.js"></script>
     <link rel="stylesheet" type="text/css" href="./style.css" />
     <title>༼ つ ╹ ╹ ༽つ GNUk.lol ༼ つ ╹ ╹ ༽つ</title>
   </head>
   <body>
+    <script id="video" type="text/html">
+      <a-entity
+        class="video"
+        geometry="primitive: box; height: .25; width: .5; depth: .1"
+        material="shader: flat; src: ${thumb}"
+        event-set__mouseenter="scale: 1.2 1.2 1"
+        event-set__mouseleave="scale: 1 1 1"
+        event-set__click="_target: #video_play; _delay: 300; material.src: ${src}"
+        proxy-event="event: click; to: #video_play; as: fade"
+      ></a-entity>
+    </script>
+    <a-assets>
+      <!-- Models -->
+      <a-asset-item id="desk" src="./assets/desk/scene.gltf"></a-asset-item>
+      <a-asset-item
+        id="sony"
+        src="./assets/sony_pvm-14l2_crt_tv/scene.gltf"
+        scale="4"
+      ></a-asset-item>
+
+      <!-- Video -->
+      <video
+        id="men-who-make"
+        preload="auto"
+        loop="false"
+        src="../../assets/Devo - The Men Who Make The Music (1979).mp4"
+      ></video>
+      <video
+        id="max"
+        preload="true"
+        loop="true"
+        src="../../assets/MH_loop.mp4"
+      ></video>
+
+      <!-- Images. -->
+      <img id="ground" src="./assets/ground.jpg" />
+      <img id="devo-thumb" src="./assets/devo-day.png" />
+      <img id="max-thumb" src="./assets/max_h.png" />
+    </a-assets>
     <a-scene
       physics
       background="color: #ff00b4"
       loading-screen="dotsColor: #ff00b4; backgroundColor: black; enabled: true"
+      renderer="antialias: auto;
+                   colorManagement: true;
+                   sortTransparentObjects: true;
+                   maxCanvasWidth: 1920;
+                   maxCanvasHeight: 1920;"
     >
-      <a-assets>
-        <!-- <audio
-          crossorigin="anonymous"
-          id="click-sound"
-          src="https://cdn.aframe.io/360-image-gallery-boilerplate/audio/click.ogg"
-        ></audio> -->
+      <a-light type="ambient" color="#fff"></a-light>
+      <a-light color="red" position="-1 1 0"></a-light>
+      <a-light type="point" color="blue" position="5 5 5"></a-light>
+      <a-box
+        src="#ground"
+        repeat="12"
+        height="12"
+        width="9"
+        depth=".1"
+        position="0 -.35 0"
+        rotation="-90 0 0"
+      ></a-box>
+      <!-- LEFT WALL -->
+      <a-box
+        color="blue"
+        height="4"
+        width="12"
+        depth=".1"
+        position="-4.45 1.7 0"
+        rotation="0 90 0"
+      ></a-box>
+      <!-- REAR WALL -->
+      <a-box
+        color="green"
+        height="4"
+        width="9"
+        depth=".1"
+        position="0 1.7 -5.95"
+        rotation="0 0 0"
+      ></a-box>
+      <!-- RIGHT WALL -->
+      <a-box
+        color="blue"
+        height="4"
+        width="12"
+        depth=".1"
+        position="4.45 1.7 0"
+        rotation="0 90 0"
+      ></a-box>
 
-        <!-- Models -->
-        <a-asset-item id="desk" src="./assets/desk/scene.gltf"></a-asset-item>
-        <a-asset-item
-          id="sony"
-          src="./assets/sony_pvm-14l2_crt_tv/scene.gltf"
-        ></a-asset-item>
+      <!-- SCENE MODEL RENDERING -->
+      <!-- <a-gltf-model
+        src="#desk"
+        position="-4 0 -5.65"
+        static-body
+      ></a-gltf-model>
+      <a-gltf-model
+        src="#sony"
+        position="-3.25 .5 -5"
+        rotation="0 25 0"
+        scale="2 2 2"
+        dynamic-body
+      ></a-gltf-model> -->
 
-        <!-- Images. -->
-        <!-- <img
-          crossorigin="anonymous"
-          id="sechelt"
-          src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/sechelt.jpg"
-        />
-        <img
-          crossorigin="anonymous"
-          id="sechelt-thumb"
-          src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/thumb-sechelt.jpg"
-        />
-        <script id="link" type="text/html">
-          <a-entity
-            class="link"
-            geometry="primitive: plane; height: 1; width: 1"
-            material="shader: flat; src: ${thumb}"
-            sound="on: click; src: #click-sound"
-            event-set__mouseenter="scale: 1.2 1.2 1"
-            event-set__mouseleave="scale: 1 1 1"
-            event-set__click="_target: #image-360; _delay: 300; material.src: ${src}"
-            proxy-event="event: click; to: #image-360; as: fade"
-          ></a-entity>
-        </script> -->
-      </a-assets>
-      <!-- 360-degree image. -->
-      <!-- <a-sky
-        id="image-360"
-        radius="10"
-        src="#sechelt"
-        animation__fade="property: components.material.material.color; type: color; from: #FFF; to: #000; dur: 300; startEvents: fade"
-        animation__fadeback="property: components.material.material.color; type: color; from: #000; to: #FFF; dur: 300; startEvents: animationcomplete__fade"
-      ></a-sky> -->
+      <!-- SCENE VIDEO RENDERING -->
+      <!-- <a-video
+        id="video_play"
+        autoplay
+        src="#max"
+        width="4"
+        height="3"
+        position="0 0 -3"
+      ></a-video> -->
 
-      <!-- Link template we will build. -->
-      <!-- <a-entity class="link"></a-entity> -->
-      <!-- <a-entity
-        id="links"
+      <a-entity
+        id="video_play"
+        material="shader: flat; src: #src"
+        geometry="primitive: plane; width: 160; height: 90;"
+        position="0 60 -250"
+        rotation="0 35 0"
+        play-on-click
+        visible="false"
+      >
+      </a-entity>
+
+      <a-entity
+        id="videos"
         layout="type: line; margin: 1.5"
-        position="-1.5 1.5 -4"
+        position="-1.5 1.5 -3"
       >
         <a-entity
-          template="src: #link"
-          data-src="#sechelt"
-          data-thumb="#sechelt-thumb"
+          template="src: #video"
+          data-src="#men-who-make"
+          data-thumb="devo-thumb"
         ></a-entity>
-      </a-entity> -->
-      <a-gltf-model src="#desk" position="-1 0 -2" static-body></a-gltf-model>
-      <a-gltf-model src="#sony" position="0 2 -1" dynamic-body></a-gltf-model>
+        <a-entity
+          template="src: #video"
+          data-src="#max"
+          data-thumb="max"
+        ></a-entity
+      ></a-entity>
+
       <!-- Camera + Cursor. -->
-      <a-camera look-controls wasd-controls position="0 .7 0">
-        <a-cursor
-          id="cursor"
-          animation__click="property: scale; from: 0.1 0.1 0.1; to: 1 1 1; easing: easeInCubic; dur: 150; startEvents: click"
-          animation__clickreset="property: scale; to: 0.1 0.1 0.1; dur: 1; startEvents: animationcomplete__click"
-          animation__fusing="property: scale; from: 1 1 1; to: 0.1 0.1 0.1; easing: easeInCubic; dur: 150; startEvents: fusing"
-        ></a-cursor>
-      </a-camera>
+      <a-entity id="rig" position="0 -.80 2">
+        <a-camera look-controls wasd-controls>
+          <a-cursor
+            id="cursor"
+            animation__click="property: scale; from: 0.1 0.1 0.1; to: 1 1 1; easing: easeInCubic; dur: 150; startEvents: click"
+            animation__clickreset="property: scale; to: 0.1 0.1 0.1; dur: 1; startEvents: animationcomplete__click"
+            animation__fusing="property: scale; from: 1 1 1; to: 0.1 0.1 0.1; easing: easeInCubic; dur: 150; startEvents: fusing"
+          ></a-cursor>
+        </a-camera>
+      </a-entity>
     </a-scene>
   </body>
 </html>

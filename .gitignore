@@ -1,4 +1,4 @@
 *.mp4
 *.gif
-assets/*
-/DVS/AFRAME/gnukTV/assets/*
+assets
+pkgs
