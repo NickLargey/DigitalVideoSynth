@@ -3,134 +3,114 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
     <script src="../pkgs/aframe/dist/aframe-master.min.js"></script>
+    <!-- <script
+      src="../../../three.js/build/three.module.js"
+      type="module"
+    ></script> -->
     <script src="https://unpkg.com/aframe-environment-component@1.3.x/dist/aframe-environment-component.min.js"></script>
     <script src="../pkgs/aframe-physics-system/dist/aframe-physics-system.min.js"></script>
-    <script src="https://unpkg.com/aframe-template-component@3.x.x/dist/aframe-template-component.min.js"></script>
-    <script src="https://unpkg.com/aframe-layout-component@5.x.x/dist/aframe-layout-component.min.js"></script>
-    <script src="https://unpkg.com/aframe-event-set-component@5.x.x/dist/aframe-event-set-component.min.js"></script>
-    <script src="https://unpkg.com/aframe-proxy-event-component@2.1.0/dist/aframe-proxy-event-component.min.jss"></script>
-    <script src="https://unpkg.com/aframe-room-component/dist/aframe-room-component.min.js"></script>
-    <script src="../pkgs/aframe/examples/js/play-on-click.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/gloomcheng/aframe-gif-shader@latest/dist/aframe-gif-shader.min.js"></script>
+    <script src="./components/play-on-click.js"></script>
+    <script src="./components/createRooms.js"></script>
     <link rel="stylesheet" type="text/css" href="./style.css" />
     <title>༼ つ ╹ ╹ ༽つ GNUk.lol ༼ つ ╹ ╹ ༽つ</title>
   </head>
   <body>
-    <script id="video" type="text/html">
-      <a-entity
-        class="video"
-        geometry="primitive: plane; height: 4; width: 3;"
-        material="shader: flat; src: ${src}"
-        event-set__mouseenter="scale: 1.2 1.2 1"
-        event-set__mouseleave="scale: 1 1 1"
-        event-set__click="_target: #video_play; _delay: 300; material.src: ${src}"
-        proxy-event="event: click; to: #video_play; as: fade"
-      ></a-entity>
-    </script>
     <a-scene
       stats
       physics
-      background="color: #ff00b4"
+      background="color: black"
+      fog="type: exponential; color: white; density: .03"
       loading-screen="dotsColor: #ff00b4; backgroundColor: black; enabled: true"
       renderer="antialias: auto;
                    colorManagement: true;
                    sortTransparentObjects: true;
-                   maxCanvasWidth: 1920;
-                   maxCanvasHeight: 1920;"
+                   maxCanvasWidth: 3840;
+                   maxCanvasHeight: 2160;"
     >
       <a-assets>
+        <!-- <a-asset-item id="sky" src="./assets/cloudSmiles.gif"></a-asset-item> -->
         <!-- Models -->
-        <a-asset-item id="desk" src="./assets/desk/scene.gltf"></a-asset-item>
+        <!-- <a-asset-item id="desk" src="./assets/desk/scene.gltf"></a-asset-item>
         <a-asset-item
           id="sony"
           src="./assets/sony_pvm-14l2_crt_tv/scene.gltf"
-        ></a-asset-item>
+        ></a-asset-item> -->
 
         <a-asset-item
           id="cabinet"
           src="./assets/retro_tv_sony_trinitron/scene.gltf"
         ></a-asset-item>
+        <a-asset-item
+          id="bed"
+          src="./assets/stylized_bed/scene.gltf"
+        ></a-asset-item>
+        <a-asset-item
+          id="wardrobe"
+          src="./assets/wardrobe/scene.gltf"
+        ></a-asset-item>
 
         <!-- Video -->
-        <video
+        <!-- <video
           id="men-who-make"
           preload="auto"
-          loop="false"
+          src="./assets/videos/Devo - The Men Who Make The Music (1979).mp4"
+          height="1"
+          width="1"
+          loop="true"
+          crossorigin="anonymous"
           muted
-          src="../../assets/Devo - The Men Who Make The Music (1979).mp4"
-        ></video>
+        ></video> -->
         <video
           id="max"
           preload="auto"
+          src="./assets/videos/MH_loop.mp4"
+          height="1"
+          width="1.1"
           loop="true"
-          src="../../assets/MH_loop.mp4"
+          crossorigin="anonymous"
+          muted
         ></video>
 
         <!-- Images. -->
-        <img id="ground" src="./assets/ground.jpg" />
-        <img id="devo-thumb" src="./assets/devo-day.png" />
-        <img id="max-thumb" src="./assets/max.png" />
+        <img
+          id="skyTexture"
+          src="./assets/images/43324525450_71aee7f03e_o.jpg"
+        />
+        <img id="ground" src="./assets/images/floor.png" />
+        <img id="skeletons" src="./assets/images/skeletons-fighting.png" />
+        <img id="sed" src="./assets/images/sed.png" />
+        <img id="rug" src="./assets/images/rug.png" />
       </a-assets>
+      <!-- SKY -->
+      <a-sky
+        id="background"
+        src="#skyTexture"
+        theta-length="180"
+        radius="30"
+      ></a-sky>
 
+      <!-- LIGHTS -->
       <a-light type="ambient" color="#fff"></a-light>
       <a-light type="point" color="red" position="-1 5 0"></a-light>
       <a-light type="point" color="blue" position="5 5 5"></a-light>
       <a-light type="point" color="green" position="-5 -5 -5"></a-light>
+      <!-- ROOM -->
+      <a-entity room scale="6 6 10" position="2 0 0"></a-entity>
+      <!-- FLOOR -->
       <a-box
         src="#ground"
         repeat="12"
-        height="12"
-        width="9"
+        height="15"
+        width="12"
         depth=".1"
-        position="0 -.35 0"
+        position="0 0 0"
         rotation="-90 0 0"
         static-body
       ></a-box>
-      <!-- LEFT WALL -->
-      <a-box
-        color="blue"
-        height="4"
-        width="12"
-        depth=".1"
-        position="-4.45 1.7 0"
-        rotation="0 90 0"
-        static-body
-      ></a-box>
-      <!-- REAR WALL -->
-      <a-box
-        color="green"
-        height="4"
-        width="9"
-        depth=".1"
-        position="0 1.7 -5.95"
-        rotation="0 0 0"
-        static-body
-      ></a-box>
-      <!-- RIGHT WALL -->
-      <a-box
-        color="blue"
-        height="4"
-        width="12"
-        depth=".1"
-        position="4.45 1.7 0"
-        rotation="0 90 0"
-        static-body
-      ></a-box>
-
       <!-- SCENE MODEL RENDERING -->
-      <!-- <a-gltf-model
-        src="#desk"
-        position="-4 0 -5.65"
-        static-body
-      ></a-gltf-model>
-      
-      <a-gltf-model
-        src="#sony"
-        position="-3.25 .5 -5"
-        rotation="0 25 0"
-        scale="2 2 2"
-        dynamic-body
-      ></a-gltf-model> -->
 
       <a-gltf-model
         src="#cabinet"
@@ -139,36 +119,45 @@
         dynamic-body
       ></a-gltf-model>
 
-      <!-- SCENE VIDEO RENDERING -->
-      <!-- <a-video
-        id="video_play"
-        autoplay
-        src="#max"
-        width="4"
-        height="3"
-        position="0 0 -3"
-      ></a-video>
+      <a-gltf-model
+        src="#bed"
+        position="2.8 1 3"
+        rotation="0 -90 0"
+        scale="0.15 0.15 0.25"
+        dynamic-body
+      ></a-gltf-model>
 
+      <a-gltf-model
+        src="#wardrobe"
+        position="3.1 1 -5.1"
+        rotation="0 -90 0"
+        scale="0.85 0.85 0.85"
+        dynamic-body
+      ></a-gltf-model>
+
+      <!-- SCENE VIDEO RENDERING -->
+      <!-- TODO: Write Component to attach one plane to #cabinet -->
       <a-entity
-        id="videos"
-        layout="type: line; margin: 1.5"
-        position="-1.5 1.5 -3"
+        material="shader: flat; src: #men-who-make"
+        geometry="primitive: plane; width: 0.82; height: .6;"
+        rotation="0 25 0"
+        play-on-click
+        visible="false"
+        position="-1.97 1.48 -3.6"
       >
-        <a-entity
-          template="src: #video"
-          data-src="#men-who-make"
-          data-thumb="devo-thumb"
-        ></a-entity>
-        <a-entity
-          template="src: #video"
-          data-src="#max"
-          data-thumb="max"
-          visable="false"
-        ></a-entity
-      ></a-entity> -->
+      </a-entity>
+      <a-entity
+        material="shader: flat; src: #max"
+        geometry="primitive: plane; width: 0.82; height: .6;"
+        rotation="0 25 0"
+        play-on-click
+        visible="false"
+        position="-1.97 1.48 -3.6"
+      >
+      </a-entity>
 
       <!-- Camera + Cursor. -->
-      <a-entity id="rig" position="0 -.80 2">
+      <a-entity id="rig" position="0 0 -8" rotation="0 180 0">
         <a-camera look-controls wasd-controls>
           <a-cursor
             id="cursor"
