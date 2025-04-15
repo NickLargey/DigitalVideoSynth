@@ -1,6 +1,7 @@
 /* global AFRAME */
 AFRAME.registerComponent("play-on-click", {
   init: function () {
+    this.vidPlaying = false;
     this.onClick = this.onClick.bind(this);
   },
   play: function () {
@@ -10,17 +11,19 @@ AFRAME.registerComponent("play-on-click", {
     window.removeEventListener("click", this.onClick);
   },
   onClick: function (evt) {
-    var vidPlaying = false;
     var videoEl = this.el.getAttribute("material").src;
     if (!videoEl) {
       return;
     }
-    this.el.object3D.visible = true;
-    if (!vidPlaying) {
-      vidPlaying = true;
+    if (!this.vidPlaying) {
+      this.el.object3D.visible = true;
+      console.log("Video is playing now!");
+      this.vidPlaying = true;
       videoEl.play();
     } else {
-      vidPlaying = false;
+      this.el.object3D.visible = false;
+      console.log("Video is paused now!");
+      this.vidPlaying = false;
       videoEl.pause();
     }
   },

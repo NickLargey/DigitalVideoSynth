@@ -1,4 +1,5 @@
 *.mp4
 *.gif
-assets
+!MH_loop.mp4
+assets/*
 pkgs

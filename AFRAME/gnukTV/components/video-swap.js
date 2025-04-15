@@ -1,19 +1,24 @@
 AFRAME.registerComponent("video-swap", {
   schema: {
-    jsonData: {
-      parse: JSON.parse,
-      stringify: JSON.stringify,
-    },
+    videos: [
+      {
+        id: "men-who-make",
+        title: "Devo: The Men Who Make The Music",
+        vidsrc: "./assets/videos/Devo - The Men Who Make The Music (1979).mp4",
+        img: "./assets/videos/thumbs/We're_All_DEVO_thumb.jpg",
+      },
+      {
+        id: "max",
+        title: "The Max Headroom Event",
+        vidsrc: "./assets/videos/MH_loop.mp4",
+        img: "./assets/videos/thumbs/max.png",
+      },
+    ],
   },
   dependencies: ["material"],
 
   init: function () {
-    this.el.setAttribute(
-      "video-swap",
-      "jsonData",
-      url("../assets/videos.json")
-    );
-    console.log(this.data.jsonData);
+    console.log(this.data.videos[0]);
     this.currentID = 0;
     this.onClick = this.onClick.bind(this);
     this.update();
@@ -23,9 +28,9 @@ AFRAME.registerComponent("video-swap", {
   },
   onClick: function (evt) {
     const videoMaterial = this.el.getAttribute("material").src;
-    const vidTitle = this.data.jsonData[this.currentID].title;
-    const videoSrc = this.data.jsonData[this.currentID].id;
-    const boxArtSrc = this.data.jsonData[this.currentID].thumb;
+    const vidTitle = this.data.videos[this.currentID].title;
+    const videoSrc = this.data.videos[this.currentID].vidsrc;
+    const boxArtSrc = this.data.videos[this.currentID].img;
 
     if (videoSrc) {
       videoMaterial.src = videoSrc;

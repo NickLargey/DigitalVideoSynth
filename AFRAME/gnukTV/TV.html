@@ -6,8 +6,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <script src="../pkgs/aframe/dist/aframe-master.min.js"></script>
     <script src="../pkgs/aframe-physics-system/dist/aframe-physics-system.min.js"></script>
-    <!-- <script type="text/javascript" src="./assets/videos.json"></script> -->
-    <script type="text/javascript" src="./components/video-swap.js"></script>
+    <script type="application/json" src="./components/swap-videos.js"></script>
     <script type="text/javascript" src="./components/play-on-click.js"></script>
     <script type="text/javascript" src="./components/create-rooms.js"></script>
     <script src="https://unpkg.com/aframe-environment-component@1.3.x/dist/aframe-environment-component.min.js"></script>
@@ -15,17 +14,6 @@
     <title>༼ つ ╹ ╹ ༽つ GNUk.lol ༼ つ ╹ ╹ ༽つ</title>
   </head>
   <body>
-    <script id="link" type="text/html">
-      <a-entity
-        class="vidLink"
-        geometry="primitive: plane; height: 1; width: 1"
-        material="shader: flat; src: ${thumb}"
-        event-set__mouseenter="scale: 1.2 1.2 1"
-        event-set__mouseleave="scale: 1 1 1"
-        event-set__click="_target: #videoEl; _delay: 300; material.src: ${src}"
-        proxy-event="event: click; to: #videoEl; as: fade"
-      ></a-entity>
-    </script>
     <a-scene
       stats
       physics
@@ -60,7 +48,7 @@
         ></a-asset-item>
 
         <!-- Video -->
-        <video
+        <!-- <video
           id="men-who-make"
           preload="auto"
           src="./assets/videos/Devo - The Men Who Make The Music (1979).mp4"
@@ -69,7 +57,7 @@
           loop="true"
           crossorigin="anonymous"
           muted
-        ></video>
+        ></video> -->
         <video
           id="max"
           preload="auto"
@@ -152,7 +140,7 @@
 
       <!-- SCENE VIDEO RENDERING -->
       <!-- TODO: Write Component to attach one plane to #cabinet -->
-      <!-- <a-entity
+      <a-entity
         material="shader: flat; src: #max"
         geometry="primitive: plane; width: 0.82; height: .6;"
         rotation="0 -145 0"
@@ -160,20 +148,11 @@
         visible="false"
         position="1.9 1.38 3.75"
       >
-      </a-entity> -->
-      <!-- <a-entity
-        id="videoEl"
-        material="shader: flat; src: ${id}"
-        geometry="primitive: plane; width: 0.82; height: .6;"
-        rotation="0 -145 0"
-        visible="false"
-        position="1.9 1.38 3.75"
-        video-swap="jsonData: url(./assets/videos.json)"
-      >
-      </a-entity> -->
+      </a-entity>
+      <!-- <a-entity swap-video="videos: ./components/videos.json;"> </a-entity> -->
 
       <!-- Camera + Cursor. -->
-      <a-entity id="rig" position="0 0 -8" rotation="0 180 0">
+      <a-entity id="rig" position="2 0 -12" rotation="0 180 0">
         <a-camera look-controls wasd-controls>
           <a-cursor
             id="cursor"
