@@ -67,9 +67,9 @@ AFRAME.registerComponent("room", {
     const frWallShape = this.punchoutToOutside(
       frontWall,
       0,
-      0,
+      y * 0.5,
       x * 0.6,
-      y * 0.3
+      y * 0.2
     );
     const frWallGeometry = this.extrudeWallGeometry(frWallShape);
     const frWall = new THREE.Mesh(
@@ -137,7 +137,7 @@ AFRAME.registerComponent("room", {
       new THREE.MeshStandardMaterial({ color: 0xff0000 })
     );
     westWallMesh.rotation.y = Math.PI / 2;
-    westWallMesh.position.x = x;
+    westWallMesh.position.x = x - 0.05;
     westWallMesh.position.z = z + 0.1;
     room.add(westWallMesh);
 
@@ -183,18 +183,14 @@ AFRAME.registerComponent("room", {
       })
     );
     ground.rotateX(-Math.PI / 2);
-    ground.translateX(-0.5);
-    ground.translateY(-0.5);
+    // ground.translateX(-0.5);
+    // ground.translateY(-0.5);
     roomsGroup.add(ground);
 
     room.translateX(-0.5);
     room.translateZ(-0.5);
 
-    // room.traverse((mesh) => (mesh !== room ? (mesh.visible = true) : null));
-
     mesh = [roomsGroup, room];
-
-    // scene.add(roomsGroup);
 
     return mesh;
   },
