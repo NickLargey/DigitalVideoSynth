@@ -5,12 +5,11 @@ let frag_shader, vert_shader;
 init();
 
 async function init() {
-  frag_shader = await (await fetch("basic.frag")).text();
-  vert_shader = await (await fetch("basic.vert")).text();
+  frag_shader = await (await fetch("../../shaders/basic.frag")).text();
+  vert_shader = await (await fetch("../../shaders/basic.vert")).text();
   console.log(frag_shader);
   console.log(vert_shader);
 }
-
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(

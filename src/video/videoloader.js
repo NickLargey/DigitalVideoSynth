@@ -1,6 +1,7 @@
-import * as THREE from "../../../three.js/build/three.module.js";
+import * as THREE from "three";
+import { TrackballControls } from "../../../three.js/examples/jsm/controls/TrackballControls.js";
 
-// Vertex Shader (Minimal)
+// Vertex Shader
 const vVertexShader = `
 precision mediump float;
 
@@ -17,7 +18,7 @@ void main() {
   v_uv = a_uv;
 }`;
 
-// Fragment Shader (Minimal)
+// Fragment Shader
 const vFragmentShader = `
 precision mediump float;
 
@@ -40,10 +41,11 @@ const camera = new THREE.PerspectiveCamera(
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
+const controls = new TrackballControls(camera, renderer.domElement);
 
 // Video Texture
 const video = document.createElement("video");
-video.src = "./assets/Max_No_Audio.mp4"; // Replace with your video path
+video.src = "../../assets/Max_No_Audio.mp4"; // Replace with your video path
 video.loop = true;
 video.muted = true;
 video.autoplay = true; // Important for video textures
@@ -71,16 +73,6 @@ const material = new THREE.ShaderMaterial({
   vertexShader: vVertexShader,
   fragmentShader: vFragmentShader,
 });
-
-// const material = new THREE.ShaderMaterial({
-//   uniforms: {
-//     u_texture: { value: texture },
-//   },
-//   vertexShader: vVertexShader,
-//   fragmentShader: vFragmentShader,
-// });
-
-// const material = new THREE.MeshBasicMaterial({ map: texture }); // Use MeshBasicMaterial for unlit video
 
 const plane = new THREE.Mesh(geometry, material);
 scene.add(plane);
@@ -130,7 +122,7 @@ requestAnimationFrame(animate);
 window.addEventListener("resize", () => {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
-
+  controls.update();
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
 

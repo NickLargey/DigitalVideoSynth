@@ -43,7 +43,7 @@ scene.add(ambLight); // attach ambient lighting object to scene
 
 // VIDEO TEXTURE
 const video = document.createElement("video");
-video.src = "./assets/Max_No_Audio.mp4"; // Replace with your video path
+video.src = "../../assets/Max_No_Audio.mp4"; // Replace with your video path
 video.loop = true; // Optional: Loop the video
 video.muted = true; // Optional: Mute the video
 
@@ -65,7 +65,7 @@ vidTexture.anisotropy = 0;
 const geometry = new THREE.PlaneGeometry(4, 3); // Adjust size to match video aspect ratio (example: 16:9)
 const vidMaterial = new THREE.MeshBasicMaterial({ map: vidTexture }); //Use MeshBasicMaterial for unlit video`
 const material = new THREE.ShaderMaterial(BasicShader);
-const plane = new THREE.Mesh(geometry, vidMaterial); // material, 
+const plane = new THREE.Mesh(geometry, vidMaterial); // material,
 
 scene.add(plane);
 
@@ -84,14 +84,6 @@ scene.add(box); // add the box object to the scene
 const controls = new OrbitControls(camera, renderer.domElement); // create new Orbit Controls object
 controls.target.set(0, 0, 0);
 controls.object.position.set(0, 0, 10);
-// controls.addEventListener("connected", (event) => {
-//   if ("gamepad" in event.data) {
-//     if ("axes" in event.data.gamepad) {
-//       //we have a modern controller
-//       controls.gamepad = event.data.gamepad;
-//     }
-//   }
-// });
 controls.update(); // update controls for each move
 
 // Position the camera

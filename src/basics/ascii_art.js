@@ -1,6 +1,6 @@
-import * as THREE from "../three.js/build/three.core.min.js";
-import { AsciiEffect } from "../three.js/examples/jsm/effects/AsciiEffect.js";
-import { TrackballControls } from "../three.js/examples/jsm/controls/TrackballControls.js";
+import * as THREE from "three";
+import { AsciiEffect } from "../../../three.js/examples/jsm/effects/AsciiEffect.js";
+import { TrackballControls } from "../../../three.js/examples/jsm/controls/TrackballControls.js";
 
 let camera, controls, scene, renderer, effect;
 

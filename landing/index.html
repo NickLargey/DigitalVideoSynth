@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ヽ༼ ຈل͜ຈ༼ ▀̿̿Ĺ̯̿̿▀̿ ̿༽Ɵ͆ل͜Ɵ͆ ༽ﾉ</title>
+    <script src="../pkgs/aframe.min.js"></script>
+    <script src="../pkgs/aframe-physics-system/dist/aframe-physics-system.min.js"></script>
+    <script src="../pkgs/aframe-extras/dist/aframe-extras.min.js"></script>
+    <script src="./components/open-link.js" type="module"></script>
+    <script src="https://unpkg.com/aframe-text-geometry-component@0.5.2/dist/aframe-text-geometry-component.min.js"></script>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="../base.css" />
+  </head>
+  <body>
+    <script type="x-shader/x-vertex" id="vertexShader">
+      attribute float size;
+      varying vec3 vColor;
+      varying vec3 pos;
+      void main() {
+        pos = position;
+      	vColor = color;
+      	vec4 mvPosition = modelViewMatrix * vec4( pos.x, pos.y, pos.z, 1.0 );
+      	gl_PointSize = size * ( 300.0 / -mvPosition.z );
+      	gl_Position = projectionMatrix * mvPosition;
+      }
+    </script>
+
+    <script type="x-shader/x-fragment" id="fragmentShader">
+      precision mediump float; // set precision to float
+
+      varying vec2 pos; // get xy position from vertex shader
+
+      // 1D GRADIENT
+      main() {
+        vec4 c1 = vec4(0.5, 0.1, 0.9, 1.);
+        vec4 c2 = vec4(0.1, 0.8, 0.7, 1.);
+        vec4 c = mix(c1, c2, pos.x);
+
+        gl_fragColor = c;
+      }
+    </script>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "../three.js/build/three.module.js",
+          "three/addons/": "../three.js/examples/jsm/"
+        }
+      }
+    </script>
+    <!-- <script src="landing.js" type="module"></script> -->
+    <a-scene
+      stats
+      physics
+      background="color: black"
+      fog="type: exponential; color: #FE00D4; density: .04"
+      loading-screen="dotsColor: #ff00b4; backgroundColor: black; enabled: true"
+      renderer="antialias: auto;
+                   colorManagement: true;
+                   sortTransparentObjects: true;
+                   maxCanvasWidth: 3840;
+                   maxCanvasHeight: 2160;"
+    >
+      <a-assets>
+        <a-asset-item
+          id="optimerBoldFont"
+          src="https://rawgit.com/mrdoob/three.js/dev/examples/fonts/optimer_bold.typeface.json"
+        ></a-asset-item>
+      </a-assets>
+      <!-- LIGHTS -->
+      <a-light type="ambient" color="#fff"></a-light>
+      <a-light type="point" color="red" position="-1 5 0"></a-light>
+      <a-light type="point" color="blue" position="5 5 5"></a-light>
+      <a-light type="point" color="green" position="-5 -5 -5"></a-light>
+
+      <a-entity
+        text-geometry="value: G N U K . L O L; font: #optimerBoldFont; size: 3; bevelEnabled: false; bevelThickness: 0.2; curveSegments: 2 "
+        position="0 20 -25"
+      ></a-entity>
+
+      <a-entity
+        text-geometry="value: Welcome... Please take a look around.; font: #optimerBoldFont; bevelEnabled: false; bevelThickness: 0.2; curveSegments: 2 "
+        position="0 15 -25"
+      ></a-entity>
+
+      <!-- GROUND -->
+      <a-cylinder
+        id="floor"
+        radius="35"
+        height="0.1"
+        position="0 -0.2 0"
+        material="shader: flat; color: black"
+        static-body
+      >
+        <a-entity
+          text-geometry="value: Loading an Image...; size:1; bevelEnabled: false; bevelThickness: 0.2; curveSegments: 2 "
+          geometry="primative: plane;"
+          position="20 3 -18"
+          open-link="link: ../src/images/image-render.html"
+        ></a-entity>
+
+        <a-entity
+          text-geometry="value: Loading an Video...;  size: 1; bevelEnabled: false; bevelThickness: 0.2; curveSegments: 20 "
+          geometry="primitive:plane"
+          position="26 1 -10"
+          open-link="link: ../src/video/video-render.html"
+        ></a-entity>
+
+        <a-entity
+          text-geometry="value: Loading an 3D Model...;  size: 1; bevelEnabled: false; bevelThickness: 0.2; curveSegments: 2 "
+          geometry="primitive:plane"
+          position="-15 9 -19"
+          open-link="link: ../src/basics/model-render.html"
+        ></a-entity>
+
+        <a-entity
+          text-geometry="value: Gnuk.TV...; size: 1; bevelEnabled: false; bevelThickness: 0.2; curveSegments: 2 "
+          geometry="primitive:plane"
+          position="0 2 -15"
+          open-link="link:../AFRAME/gnukTV/TV.html"
+        ></a-entity>
+
+        <a-entity
+          text-geometry="value: Video Rendering...; size: 1; bevelEnabled: false; bevelThickness: 0.2; curveSegments: 2 "
+          geometry="primitive:plane"
+          position="-25 5 -11"
+          open-link="../GLSL/practice/index.html"
+        ></a-entity>
+      </a-cylinder>
+
+      <!-- CAMERA -->
+      <a-entity id="rig" position="0 0 10">
+        <a-camera look-controls wasd-controls>
+          <a-cursor id="cursor" color="#0abdc6"></a-cursor>
+        </a-camera>
+      </a-entity>
+    </a-scene>
+  </body>
+</html>

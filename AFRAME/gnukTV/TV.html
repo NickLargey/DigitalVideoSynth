@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <script src="../pkgs/aframe/dist/aframe-master.min.js"></script>
-    <script src="../pkgs/aframe-physics-system/dist/aframe-physics-system.min.js"></script>
+    <script src="../../pkgs/aframe/dist/aframe-master.min.js"></script>
+    <script src="../../pkgs/aframe-physics-system/dist/aframe-physics-system.min.js"></script>
     <script type="application/json" src="./components/swap-videos.js"></script>
     <script type="text/javascript" src="./components/play-on-click.js"></script>
     <script type="text/javascript" src="./components/create-rooms.js"></script>
@@ -120,6 +120,13 @@
         position="2 1 4.1"
         rotation="0 125 0"
         dynamic-body
+        ><a-text
+          value="Press the Spacebar to turn the TV On and Off!"
+          anchor="center"
+          scale="0.75 0.75 0.75"
+          position="0 2.5 -.5"
+          rotation="0 90 0"
+        ></a-text
       ></a-gltf-model>
 
       <a-gltf-model

@@ -31,20 +31,20 @@ let ambLight = new THREE.AmbientLight(0xffffff); // create new ambient lighting 
 scene.add(ambLight); // attach ambient lighting object to scene
 
 // CUSTOM SHADER
-// function setMaterialsOnGLTF(object3D) {
-//   if (object3D.material) {
-//     const newMaterial = new THREE.MeshPhongMaterial({
-//       map: object3D.material.map,
-//     });
-//     object3D.material = newMaterial;
-//   }
-//   if (!object3D.children) {
-//     return;
-//   }
-//   for (let i = 0; i < object3D.children.length; i++) {
-//     Utilities.setMaterialsOnGLTF(object3D.children[i]);
-//   }
-// }
+function setMaterialsOnGLTF(object3D) {
+  if (object3D.material) {
+    const newMaterial = new THREE.MeshPhongMaterial({
+      map: object3D.material.map,
+    });
+    object3D.material = newMaterial;
+  }
+  if (!object3D.children) {
+    return;
+  }
+  for (let i = 0; i < object3D.children.length; i++) {
+    Utilities.setMaterialsOnGLTF(object3D.children[i]);
+  }
+}
 
 // MODEL LOADER
 const loader = new GLTFLoader();
@@ -69,7 +69,7 @@ loader.load(
       console.log(materials);
     });
 
-    // setMaterialsOnGLTF(gltf.scene);
+    setMaterialsOnGLTF(gltf.scene);
     scene.add(gltf.scene);
     gltf.scene.scale.set(0.01, 0.01, 0.01);
   },
