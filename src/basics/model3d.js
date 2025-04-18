@@ -50,13 +50,11 @@ scene.add(ambLight); // attach ambient lighting object to scene
 const loader = new GLTFLoader();
 let mixer, model;
 
-
-
 loader.load(
-  // "../DVS/assets/blue_whale/blue_whale_-_textured.glb",
+  // "../../DVS/assets/blue_whale/blue_whale_-_textured.gltf",
   "../../assets/blue_whale/scene.gltf",
-  // "../DVS/assets/phantom_reaper/phantom_reaper_-_textured.glb",
-  // "../DVS/assets/manta/manta.glb",
+  // "../../assets/phantom_reaper/phantom_reaper_-_textured.gltf",
+  // "../../assets/manta/manta.gltf",
 
   (gltf) => {
     model = gltf.scene;
